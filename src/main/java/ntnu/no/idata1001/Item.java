@@ -117,13 +117,16 @@ public class Item {
    * @param color of the item
    */
   private void setColor(String color) {
-    this.color = color.trim();
+    if (!color.isBlank()) {
+      this.color = color.trim();
+    }
   }
 
   /**
    * Set the amount of items.
    *
    * @param amount of the items
+   * @throws IllegalArgumentException if the amount is under 0
    */
   private void setAmount(int amount) {
     if (amount >= 0) {
@@ -133,8 +136,24 @@ public class Item {
     }
   }
 
-  private void setCategory(Category category) {
-    this.category = category;
+  /**
+   * Set the category of the item.
+   *
+   * @param category of the item
+   * @throws IllegalArgumentException if category is outside the range 1 to 4
+   */
+  private void setCategory(int category) {
+    if (category == 1) {
+      this.category = Category.FLOOR_LAMINATION;
+    } else if (category == 2) {
+      this.category = Category.WINDOW;
+    } else if (category == 3) {
+      this.category = Category.DOOR;
+    } else if (category == 4) {
+      this.category = Category.WOOD;
+    } else {
+      throw new IllegalArgumentException("Category should be between 1 and 4");
+    }
   }
 
   /**
