@@ -17,10 +17,34 @@ public class Item {
   private int amount;
   private Category category;
 
+  /**
+   * Constructor for the item.
+   *
+   * @param sequenceNumber the sequence number, cannot be under 0
+   * @param description of the item
+   * @param price of the item, cannot be lower than 0
+   * @param brand of the item, lower case
+   * @param weight of the item, cannot be 0 or lower
+   * @param length of the item, cannot be 0 or lower
+   * @param height of the item, cannot be 0 or lower
+   * @param color of the item, lower case
+   * @param amount of the item, cannot be 0 or lower
+   * @param category of the item, must be between 1-4
+   */
   public Item(int sequenceNumber, String description, int price, String brand,
               float weight, float length, float height,
               String color, int amount, int category) {
 
+    setSequenceNumber(sequenceNumber);
+    setDescription(description);
+    setPrice(price);
+    setBrand(brand);
+    setWeight(weight);
+    setLength(length);
+    setHeight(height);
+    setColor(color);
+    setAmount(amount);
+    setCategory(category);
   }
 
   /**
@@ -52,7 +76,7 @@ public class Item {
    * @param price number which indicates how much the item costs
    * @throws IllegalArgumentException if the price is lower than 0
    */
-  private void setPrice(int price) {
+  public void setPrice(int price) {
     if (price >= 0) {
       this.price = price;
     } else {
@@ -66,7 +90,7 @@ public class Item {
    * @param brand of the item, etc. Hunton, Pergo
    */
   private void setBrand(String brand) {
-    this.brand = brand;
+    this.brand = brand.trim().toLowerCase();
   }
 
   /**
@@ -112,13 +136,13 @@ public class Item {
   }
 
   /**
-   * Set the color of the given item.
+   * Set the color of the given item. Make them lowercase.
    *
    * @param color of the item
    */
   private void setColor(String color) {
     if (!color.isBlank()) {
-      this.color = color.trim();
+      this.color = color.trim().toLowerCase();
     }
   }
 
@@ -128,7 +152,7 @@ public class Item {
    * @param amount of the items
    * @throws IllegalArgumentException if the amount is under 0
    */
-  private void setAmount(int amount) {
+  public void setAmount(int amount) {
     if (amount >= 0) {
       this.amount = amount;
     } else {
@@ -245,4 +269,6 @@ public class Item {
   public Category getCategory() {
     return category;
   }
+
+
 }
