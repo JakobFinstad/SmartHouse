@@ -1,4 +1,4 @@
-package ntnu.no.idata1001;
+package ntnu.no.idata1001.jakobfin;
 
 /**
  * Class for different items, contains useful information regarding different items.
@@ -111,9 +111,8 @@ public class Item {
    * Set the length of a given item.
    *
    * @param length of the item in meters
-   * @throws IllegalArgumentException if length is 0 or lower
    */
-  private void setLength(float length) {
+  private void setLength(float length){
     if (length > 0) {
       this.length = length;
     } else {
