@@ -1,12 +1,14 @@
 package ntnu.no.idata1001.jakobfin;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Class for different items, contains useful information regarding different items.
  *
  * @author 10042
  */
 public class Item {
-  private int sequenceNumber;
+  private String sequenceNumber;
   private String description;
   private int price;
   private String brand;
@@ -16,6 +18,10 @@ public class Item {
   private String color;
   private int amount;
   private Category category;
+  private static final int FLOOR_LAMINATION = 1;
+  private static final int WINDOW = 2;
+  private static final int DOOR = 3;
+  private static final int WOOD = 4;
 
   /**
    * Constructor for the item.
@@ -31,7 +37,7 @@ public class Item {
    * @param amount of the item, cannot be 0 or lower
    * @param category of the item, must be between 1-4
    */
-  public Item(int sequenceNumber, String description, int price, String brand,
+  public Item(String sequenceNumber, String description, int price, String brand,
               float weight, float length, float height,
               String color, int amount, int category) {
 
@@ -50,14 +56,14 @@ public class Item {
   /**
    * Set the sequence number of the item.
    *
-   * @param sequenceNumber number of the product
+   * @param sequenceNumber used to identify the item
    * @throws IllegalArgumentException if the sequence number is lower or equal to 0
    */
-  private void setSequenceNumber(int sequenceNumber) {
-    if (sequenceNumber > 0) {
-      this.sequenceNumber = sequenceNumber;
+  private void setSequenceNumber(String sequenceNumber) {
+    if (!sequenceNumber.isBlank() && !sequenceNumber.isEmpty()) {
+      this.sequenceNumber = sequenceNumber.trim().toUpperCase();
     } else {
-      throw new IllegalArgumentException("Sequence number cannot be under 0");
+      throw new IllegalArgumentException("Sequence number cannot be null");
     }
   }
 
@@ -89,7 +95,7 @@ public class Item {
    *
    * @param brand of the item, etc. Hunton, Pergo
    */
-  private void setBrand(String brand) {
+  private void setBrand(@NotNull String brand) {
     this.brand = brand.trim().toLowerCase();
   }
 
@@ -112,7 +118,7 @@ public class Item {
    *
    * @param length of the item in meters
    */
-  private void setLength(float length){
+  private void setLength(float length) {
     if (length > 0) {
       this.length = length;
     } else {
@@ -166,17 +172,14 @@ public class Item {
    * @throws IllegalArgumentException if category is outside the range 1 to 4
    */
   private void setCategory(int category) {
-    if (category == 1) {
-      this.category = Category.FLOOR_LAMINATION;
-    } else if (category == 2) {
-      this.category = Category.WINDOW;
-    } else if (category == 3) {
-      this.category = Category.DOOR;
-    } else if (category == 4) {
-      this.category = Category.WOOD;
-    } else {
-      throw new IllegalArgumentException("Category should be between 1 and 4");
+    switch (category) {
+      case FLOOR_LAMINATION -> this.category = Category.FLOOR_LAMINATION;
+      case WINDOW -> this.category = Category.WINDOW;
+      case DOOR -> this.category = Category.DOOR;
+      case WOOD -> this.category = Category.WOOD;
+      default -> throw new IllegalArgumentException("Category should be between 1 and 4");
     }
+
   }
 
   /**
@@ -184,7 +187,7 @@ public class Item {
    *
    * @return the sequence number of the item
    */
-  public int getSequenceNumber() {
+  public String getSequenceNumber() {
     return sequenceNumber;
   }
 
