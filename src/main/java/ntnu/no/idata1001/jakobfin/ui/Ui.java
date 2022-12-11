@@ -84,6 +84,8 @@ public class Ui {
       }
     } catch (IllegalArgumentException e) {
       System.out.println("Something went wrong: " + e.getMessage());
+    } catch (NullPointerException e) {
+      System.out.println("No such item in the register...");
     }
   }
 
@@ -94,6 +96,7 @@ public class Ui {
   private void addWare() {
     try {
       itemRegister.addItem(createItem());
+      System.out.println("Item added successfully");
     } catch (IllegalArgumentException e) {
       System.out.println("Could not execute: " + e.getMessage());
     }
@@ -108,6 +111,7 @@ public class Ui {
     try {
       itemRegister.changeWareAmount(inputReader.getString("Sequence number for item"),
               inputReader.getInt("The new amount"));
+      System.out.println("New amount set...");
     } catch (IllegalArgumentException e) {
       System.out.println("Something went wrong: " + e.getMessage());
     } catch (NullPointerException e) {
@@ -120,9 +124,16 @@ public class Ui {
    */
   private void deleteWare() {
     try {
-      itemRegister.deleteWare(itemRegister.searchBySequenceNumber(
-              inputReader.getString("Please enter the sequence number of the ware that shall"
-                      + " be deleted.")));
+      Item item = itemRegister.searchBySequenceNumber(inputReader.getString("Please enter "
+              + "the sequence number of the ware that shall"
+              + " be deleted."));
+      if (item != null) {
+        if (inputReader.getBoolean("Sure you want to delete this item?")) {
+          itemRegister.deleteWare(item);
+        }
+      }
+
+      System.out.println("Ware deleted successfully.....");
     } catch (NullPointerException e) {
       System.out.println("Could not find item: " + e.getMessage());
     }
@@ -132,14 +143,15 @@ public class Ui {
    * Change the discount of a given ware.
    */
   private void changeDiscount() {
-    Item changedItem = itemRegister.searchBySequenceNumber(
-            "Sequence number on the ware that shall be changed");
+    Item changedItem = itemRegister.searchBySequenceNumber(inputReader.getString(
+            "Sequence number on the ware that shall be changed"));
     double discount = inputReader.getDouble("Write the discount, between 0 and 100");
     int newPrice = changedItem.getPrice();
 
     if (0 <= discount && discount <= 100) {
-      newPrice = (int) (newPrice * (1 - discount / 100));
+      newPrice = (int) (newPrice * (1 - (discount / 100)));
       itemRegister.changeWarePrice(changedItem.getSequenceNumber(), newPrice);
+      System.out.println("Discount added...");
     } else {
       System.out.println("Discount range is between 0 and 100. Please try again...");
     }
@@ -153,6 +165,7 @@ public class Ui {
       itemRegister.changeDescription(inputReader.getString(
               "Sequence number of the item that shall be altered"
       ), inputReader.getString("New description for the item"));
+      System.out.println("Description changed...");
     } catch (IllegalArgumentException | NullPointerException e) {
       System.out.println("Something went wrong: " + e.getMessage());
     }
@@ -166,8 +179,11 @@ public class Ui {
       itemRegister.changeWarePrice(inputReader.getString(
               "Sequence number of the ware that shall be altered."),
               inputReader.getInt("New price for the ware"));
-    } catch (IllegalArgumentException | NullPointerException e) {
-      System.out.println("Something went wrong: " + e.getMessage());
+      System.out.println("Price changed....");
+    } catch (IllegalArgumentException e) {
+      System.out.println("New price cannot be added: " + e.getMessage());
+    } catch (NullPointerException e) {
+      System.out.println("No such item in the register: " + e.getMessage());
     }
   }
 
@@ -186,6 +202,7 @@ public class Ui {
               inputReader.getDouble("Weight"),
               inputReader.getDouble("Length"),
               inputReader.getDouble("Height"),
+              inputReader.getDouble("Width"),
               inputReader.getString("Color"),
               inputReader.getInt("Amount"),
               inputReader.getInt("Category, "
@@ -236,19 +253,19 @@ public class Ui {
    */
   private void populateTheWareHouse() {
     Item item1 = new Item("1", "Glass pane",
-            100, "Ikea", 19, 19, 19, "Invisible", 10, 2);
+            100, "Ikea", 19, 19, 19, 20, "Invisible", 10, 2);
 
     Item item2 = new Item("2", "Door knob",
-            36, "Ikea", 10.2, 19, 19, "Orange", 20, 3);
+            36, "Ikea", 10.2, 19, 19, 10, "Orange", 20, 3);
 
     Item item3 = new Item("3", "Door knob",
-            10, "Ikea", 19, 19, 19, "kas", 10, 3);
+            10, "Ikea", 19, 19, 19, 18, "kas", 10, 3);
 
     Item item4 = new Item("4", "Glass pane",
-            10, "Jysk", 19, 19, 19, "kas", 10, 2);
+            10, "Jysk", 19, 19, 19, 19, "kas", 10, 2);
 
     Item item5 = new Item("1HG", "Weights",
-            10, "Princess", 19, 19, 19, "kas", 10, 4);
+            10, "Princess", 19, 19, 19, 19, "kas", 10, 4);
 
     itemRegister.addMultipleItems(Stream.of(item1, item2, item3, item4, item5));
   }

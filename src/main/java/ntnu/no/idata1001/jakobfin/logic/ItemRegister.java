@@ -85,8 +85,8 @@ public class ItemRegister {
    * @throws NullPointerException if the ware does not exist in the warehouse
    */
   public void deleteWare(Item item) throws NullPointerException {
-    if (itemMap.containsKey(item)) {
-      itemMap.remove(item);
+    if (itemMap.containsKey(item.getSequenceNumber())) {
+      itemMap.remove(item.getSequenceNumber());
     } else {
       throw new NullPointerException("No such item");
     }
@@ -132,6 +132,7 @@ public class ItemRegister {
             + "Weight: " + item.getWeight() + "\n"
             + "Length: " + item.getLength() + "\n"
             + "Height: " + item.getHeight() + "\n"
+            + "Width: " + item.getWidth() + "\n"
             + "Color: " + item.getColor() + "\n"
             + "Amount: " + item.getAmount() + "\n"
             + "Category: " + item.getCategory() + "\n"

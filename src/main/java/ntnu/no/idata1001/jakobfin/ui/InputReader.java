@@ -44,10 +44,11 @@ public class InputReader {
     boolean needInt = true;
     int selectedChoice = 0;
     while (needInt) {
-      try{
+      try {
         selectedChoice = Integer.parseInt(scanner.nextLine());
-      } catch (NumberFormatException NFE) {
-        System.out.println("Try again: " + NFE.getMessage());
+        needInt = false;
+      } catch (NumberFormatException nfe) {
+        System.out.println("Try again: " + nfe.getMessage());
         System.out.println("> ");
       }
     }
@@ -88,10 +89,11 @@ public class InputReader {
     double toReturn = 0;
     boolean needDouble = true;
     while (needDouble) {
-      try{
+      try {
         toReturn = Double.parseDouble(scanner.nextLine());
-      } catch (NumberFormatException NFE) {
-        System.out.println("Try again: " + NFE.getMessage());
+        needDouble = false;
+      } catch (NumberFormatException nfe) {
+        System.out.println("Try again: " + nfe.getMessage());
         System.out.println("> ");
       }
     }

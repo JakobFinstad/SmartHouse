@@ -15,6 +15,7 @@ public class Item {
   private double weight;
   private double length;
   private double height;
+  private double width;
   private String color;
   private int amount;
   private Category category;
@@ -33,12 +34,13 @@ public class Item {
    * @param weight of the item, cannot be 0 or lower
    * @param length of the item, cannot be 0 or lower
    * @param height of the item, cannot be 0 or lower
+   * @param width of the item, cannot be 0 or lower
    * @param color of the item, lower case
    * @param amount of the item, cannot be 0 or lower
    * @param category of the item, must be between 1-4
    */
   public Item(String sequenceNumber, String description, int price, String brand,
-              double weight, double length, double height,
+              double weight, double length, double height, double width,
               String color, int amount, int category) {
 
     setSequenceNumber(sequenceNumber);
@@ -48,6 +50,7 @@ public class Item {
     setWeight(weight);
     setLength(length);
     setHeight(height);
+    setWidth(width);
     setColor(color);
     setAmount(amount);
     setCategory(category);
@@ -66,6 +69,7 @@ public class Item {
     setWeight(item.getWeight());
     setLength(item.getLength());
     setHeight(item.getHeight());
+    setWidth(item.getWidth());
     setColor(item.getColor());
     setAmount(item.getAmount());
     this.category = item.category;
@@ -159,6 +163,20 @@ public class Item {
   }
 
   /**
+   * Set the width of the item.
+   *
+   * @param width of the item, cannot be under 0
+   * @throws IllegalArgumentException if the width is lower or equal to 0
+   */
+  private void setWidth(double width) {
+    if (width > 0) {
+      this.width = width;
+    } else {
+      throw new IllegalArgumentException("Width cannot be 0 or lower");
+    }
+  }
+
+  /**
    * Set the color of the given item. Make them lowercase.
    *
    * @param color of the item
@@ -206,7 +224,7 @@ public class Item {
    * @return the sequence number of the item
    */
   public String getSequenceNumber() {
-    return sequenceNumber;
+    return this.sequenceNumber;
   }
 
   /**
@@ -215,7 +233,7 @@ public class Item {
    * @return the description of the item
    */
   public String getDescription() {
-    return description;
+    return this.description;
   }
 
   /**
@@ -224,7 +242,7 @@ public class Item {
    * @return the price of the item
    */
   public int getPrice() {
-    return price;
+    return this.price;
   }
 
   /**
@@ -233,7 +251,7 @@ public class Item {
    * @return the brand of the item
    */
   public String getBrand() {
-    return brand;
+    return this.brand;
   }
 
   /**
@@ -242,7 +260,7 @@ public class Item {
    * @return the weight of the item
    */
   public double getWeight() {
-    return weight;
+    return this.weight;
   }
 
   /**
@@ -251,7 +269,7 @@ public class Item {
    * @return the length of the item
    */
   public double getLength() {
-    return length;
+    return this.length;
   }
 
   /**
@@ -260,7 +278,11 @@ public class Item {
    * @return the height of the item
    */
   public double getHeight() {
-    return height;
+    return this.height;
+  }
+
+  public double getWidth() {
+    return this.width;
   }
 
   /**
@@ -269,7 +291,7 @@ public class Item {
    * @return the color of the item
    */
   public String getColor() {
-    return color;
+    return this.color;
   }
 
   /**
@@ -278,7 +300,7 @@ public class Item {
    * @return the amount of items
    */
   public int getAmount() {
-    return amount;
+    return this.amount;
   }
 
   /**
@@ -287,7 +309,7 @@ public class Item {
    * @return category of the item
    */
   public Category getCategory() {
-    return category;
+    return this.category;
   }
 
 
