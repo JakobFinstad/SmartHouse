@@ -1,4 +1,4 @@
-package ntnu.no.idata1001.jakobfin;
+package ntnu.no.idata1001.jakobfin.logic;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -54,6 +54,24 @@ public class Item {
   }
 
   /**
+   * Constructor for creating a copy of an item.
+   *
+   * @param item that shall be copied
+   */
+  protected Item(Item item) {
+    setSequenceNumber(item.getSequenceNumber());
+    setDescription(item.getDescription());
+    setPrice(item.getPrice());
+    setBrand(item.getBrand());
+    setWeight(item.getWeight());
+    setLength(item.getLength());
+    setHeight(item.getHeight());
+    setColor(item.getColor());
+    setAmount(item.getAmount());
+    this.category = item.category;
+  }
+
+  /**
    * Set the sequence number of the item.
    *
    * @param sequenceNumber used to identify the item
@@ -72,7 +90,7 @@ public class Item {
    *
    * @param description of the item
    */
-  public void setDescription(String description) {
+  protected void setDescription(String description) {
     this.description = description.trim();
   }
 
@@ -82,7 +100,7 @@ public class Item {
    * @param price number which indicates how much the item costs
    * @throws IllegalArgumentException if the price is lower than 0
    */
-  public void setPrice(int price) {
+  protected void setPrice(int price) {
     if (price >= 0) {
       this.price = price;
     } else {
@@ -157,7 +175,7 @@ public class Item {
    * @param amount of the items
    * @throws IllegalArgumentException if the amount is under 0
    */
-  public void setAmount(int amount) {
+  protected void setAmount(int amount) {
     if (amount >= 0) {
       this.amount = amount;
     } else {

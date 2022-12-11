@@ -1,4 +1,4 @@
-package ntnu.no.idata1001.jakobfin;
+package ntnu.no.idata1001.jakobfin.ui;
 
 import java.util.Scanner;
 
@@ -28,7 +28,6 @@ public class InputReader {
     System.out.println(displayMessage);
     System.out.print("> ");
     String selectedChoice = scanner.nextLine();
-    scanner.reset();
     return selectedChoice;
   }
 
@@ -42,16 +41,17 @@ public class InputReader {
     System.out.println(displayMessage);
     System.out.print("> ");
 
-    while (true) {
-      int selectedChoice = 0;
-      if (scanner.hasNextInt()) {
-        selectedChoice = scanner.nextInt();
-        scanner.reset();
-        return selectedChoice;
-      } else {
-        System.out.println("Please enter a number");
+    boolean needInt = true;
+    int selectedChoice = 0;
+    while (needInt) {
+      try{
+        selectedChoice = Integer.parseInt(scanner.nextLine());
+      } catch (NumberFormatException NFE) {
+        System.out.println("Try again: " + NFE.getMessage());
+        System.out.println("> ");
       }
     }
+    return selectedChoice;
   }
 
   /**
@@ -73,7 +73,6 @@ public class InputReader {
     } else if (!selectedChoice.equals("y") && !selectedChoice.equals("n")) {
       System.out.println("Please enter y or n!");
     }
-    scanner.reset();
     return booleanToReturn;
   }
 
@@ -85,17 +84,17 @@ public class InputReader {
    */
   public double getDouble(String displayMessage) {
     System.out.println(displayMessage);
+    System.out.print("> ");
     double toReturn = 0;
     boolean needDouble = true;
     while (needDouble) {
-      if (scanner.hasNextDouble()) {
-        toReturn = scanner.nextDouble();
-        needDouble = false;
-      } else {
-        System.out.println("Please enter a float");
+      try{
+        toReturn = Double.parseDouble(scanner.nextLine());
+      } catch (NumberFormatException NFE) {
+        System.out.println("Try again: " + NFE.getMessage());
+        System.out.println("> ");
       }
     }
-    scanner.reset();
     return toReturn;
   }
 }

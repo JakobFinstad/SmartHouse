@@ -1,4 +1,4 @@
-package ntnu.no.idata1001.jakobfin;
+package ntnu.no.idata1001.jakobfin.logic;
 
 /**
  * Enum class for the different category of items in the warehouse.

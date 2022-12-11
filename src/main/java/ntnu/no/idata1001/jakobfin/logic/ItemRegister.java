@@ -1,4 +1,4 @@
-package ntnu.no.idata1001.jakobfin;
+package ntnu.no.idata1001.jakobfin.logic;
 
 
 import java.util.ArrayList;
@@ -29,11 +29,12 @@ public class ItemRegister {
    * @param item that shall be added to the warehouse
    */
   public void addItem(Item item) {
-    if (item != null && item.getSequenceNumber().isEmpty() && item.getAmount() >= 0) {
+    if (item != null && !item.getSequenceNumber().isEmpty() && item.getAmount()
+            >= 0 && !itemMap.containsKey(item.getSequenceNumber())) {
       itemMap.put(item.getSequenceNumber(), item);
     } else {
       throw new IllegalArgumentException(
-          "Item was not valid, must have and amount higher than zero");
+          "Item was not valid, please try again");
     }
   }
 
@@ -45,10 +46,11 @@ public class ItemRegister {
    */
   public Item searchBySequenceNumber(String sequenceNumber) {
     Item foundItem = null;
-    if (itemMap.containsKey(sequenceNumber.trim().toLowerCase())) {
+    if (itemMap.containsKey(sequenceNumber.trim().toUpperCase())) {
       foundItem = itemMap.get(sequenceNumber);
     }
-    return foundItem;
+    Item returnItem = new Item(foundItem);
+    return returnItem;
   }
 
   /**
@@ -94,11 +96,22 @@ public class ItemRegister {
    * Change the amount of an item in the warehouse. Amount must be over 0.
    *
    * @param amount of the given item in the warehouse
-   * @param item that shall change amount
+   * @param sequenceNumber of the item that shall be changed
    * @throws IllegalArgumentException if amount is out of bounds
    */
-  public void changeWareAmount(Item item, int amount) throws IllegalArgumentException {
-    itemMap.get(item).setAmount(amount);
+  public void changeWareAmount(String sequenceNumber, int amount)
+          throws IllegalArgumentException, NullPointerException {
+    itemMap.get(sequenceNumber).setAmount(amount);
+  }
+
+  public void changeWarePrice(String sequenceNumber, int price)
+          throws IllegalArgumentException, NullPointerException {
+    itemMap.get(sequenceNumber).setPrice(price);
+  }
+
+  public void changeDescription(String sequenceNumber, String description)
+          throws  IllegalArgumentException, NullPointerException {
+    itemMap.get(sequenceNumber).setDescription(description);
   }
 
   /**
@@ -107,7 +120,7 @@ public class ItemRegister {
    * @return string with all the information of the given item
    */
   public String getDescription(Item item) {
-    if(item ==  null){
+    if (item ==  null) {
       throw new IllegalArgumentException("Item cannot be null");
     }
     String str = "";
@@ -121,22 +134,12 @@ public class ItemRegister {
             + "Height: " + item.getHeight() + "\n"
             + "Color: " + item.getColor() + "\n"
             + "Amount: " + item.getAmount() + "\n"
-            + "Category: " + item.getDescription() + "\n"
+            + "Category: " + item.getCategory() + "\n"
             + "=================================\n";
 
     return str;
   }
 
-  /**
-   * List all the items in the warehouse.
-   *
-   * @param it the iterator for the items that shall be written out
-   */
-  public void listAllItems(Iterator<Item> it) {
-    while (it.hasNext()) {
-      System.out.println(getDescription(it.next()));
-    }
-  }
 
   /**
    * Add multiple items to the item map.

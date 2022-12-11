@@ -1,5 +1,7 @@
 package ntnu.no.idata1001.jakobfin;
 
+import ntnu.no.idata1001.jakobfin.logic.Category;
+import ntnu.no.idata1001.jakobfin.logic.Item;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
