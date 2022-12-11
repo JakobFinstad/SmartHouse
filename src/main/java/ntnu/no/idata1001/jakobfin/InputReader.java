@@ -28,6 +28,7 @@ public class InputReader {
     System.out.println(displayMessage);
     System.out.print("> ");
     String selectedChoice = scanner.nextLine();
+    scanner.reset();
     return selectedChoice;
   }
 
@@ -45,6 +46,7 @@ public class InputReader {
       int selectedChoice = 0;
       if (scanner.hasNextInt()) {
         selectedChoice = scanner.nextInt();
+        scanner.reset();
         return selectedChoice;
       } else {
         System.out.println("Please enter a number");
@@ -71,6 +73,7 @@ public class InputReader {
     } else if (!selectedChoice.equals("y") && !selectedChoice.equals("n")) {
       System.out.println("Please enter y or n!");
     }
+    scanner.reset();
     return booleanToReturn;
   }
 
@@ -92,6 +95,7 @@ public class InputReader {
         System.out.println("Please enter a float");
       }
     }
+    scanner.reset();
     return toReturn;
   }
 }
