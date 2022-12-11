@@ -12,9 +12,9 @@ public class Item {
   private String description;
   private int price;
   private String brand;
-  private float weight;
-  private float length;
-  private float height;
+  private double weight;
+  private double length;
+  private double height;
   private String color;
   private int amount;
   private Category category;
@@ -38,7 +38,7 @@ public class Item {
    * @param category of the item, must be between 1-4
    */
   public Item(String sequenceNumber, String description, int price, String brand,
-              float weight, float length, float height,
+              double weight, double length, double height,
               String color, int amount, int category) {
 
     setSequenceNumber(sequenceNumber);
@@ -72,7 +72,7 @@ public class Item {
    *
    * @param description of the item
    */
-  private void setDescription(String description) {
+  public void setDescription(String description) {
     this.description = description.trim();
   }
 
@@ -105,7 +105,7 @@ public class Item {
    * @param weight a representation of the item's mass, should not be under 0
    * @throws IllegalArgumentException if weight is not higher than 0
    */
-  private void setWeight(float weight) {
+  private void setWeight(double weight) {
     if (weight > 0) {
       this.weight = weight;
     } else {
@@ -118,7 +118,7 @@ public class Item {
    *
    * @param length of the item in meters
    */
-  private void setLength(float length) {
+  private void setLength(double length) {
     if (length > 0) {
       this.length = length;
     } else {
@@ -132,7 +132,7 @@ public class Item {
    *@param height of the item, cannot be under 0
    *@throws IllegalArgumentException if height is lower or equal to 0
    */
-  private void setHeight(float height) {
+  private void setHeight(double height) {
     if (height > 0) {
       this.height = height;
     } else {
@@ -223,7 +223,7 @@ public class Item {
    *
    * @return the weight of the item
    */
-  public float getWeight() {
+  public double getWeight() {
     return weight;
   }
 
@@ -232,7 +232,7 @@ public class Item {
    *
    * @return the length of the item
    */
-  public float getLength() {
+  public double getLength() {
     return length;
   }
 
@@ -241,7 +241,7 @@ public class Item {
    *
    * @return the height of the item
    */
-  public float getHeight() {
+  public double getHeight() {
     return height;
   }
 

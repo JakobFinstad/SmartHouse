@@ -1,8 +1,11 @@
 package ntnu.no.idata1001.jakobfin;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * A class for holding multiple items for the warehouse. Have some basic operations to manipulate
@@ -49,16 +52,16 @@ public class ItemRegister {
   }
 
   /**
-   * Search the warehouse for a given item by description.
+   * Search the warehouse for multiple items by description.
    *
    * @param description of the item that shall be searched for
    * @return item if found, if not found returns null
    */
-  public Item searchByDescription(String description) {
-    Item foundItem = null;
+  public List<Item> searchMultipleByDescription(String description) {
+    List<Item> foundItem = new ArrayList<>();
     for (Item it : itemMap.values()) {
       if (it.getDescription().equals(description.trim())) {
-        foundItem = it;
+        foundItem.add(it);
       }
     }
     return foundItem;
@@ -83,7 +86,7 @@ public class ItemRegister {
     if (itemMap.containsKey(item)) {
       itemMap.remove(item);
     } else {
-      throw new NullPointerException();
+      throw new NullPointerException("No such item");
     }
   }
 
@@ -94,7 +97,7 @@ public class ItemRegister {
    * @param item that shall change amount
    * @throws IllegalArgumentException if amount is out of bounds
    */
-  public void changeWareAmount(int amount, Item item) throws IllegalArgumentException {
+  public void changeWareAmount(Item item, int amount) throws IllegalArgumentException {
     itemMap.get(item).setAmount(amount);
   }
 
@@ -104,6 +107,9 @@ public class ItemRegister {
    * @return string with all the information of the given item
    */
   public String getDescription(Item item) {
+    if(item ==  null){
+      throw new IllegalArgumentException("Item cannot be null");
+    }
     String str = "";
     str += "==============================\n"
             + "Sequence Number: " + item.getSequenceNumber() + "\n"
@@ -126,9 +132,18 @@ public class ItemRegister {
    *
    * @param it the iterator for the items that shall be written out
    */
-  private void listAllItems(Iterator<Item> it) {
+  public void listAllItems(Iterator<Item> it) {
     while (it.hasNext()) {
       System.out.println(getDescription(it.next()));
     }
+  }
+
+  /**
+   * Add multiple items to the item map.
+   *
+   * @param stream of the items that shall be added
+   */
+  public void addMultipleItems(Stream<Item> stream) {
+    stream.forEach(item -> itemMap.put(item.getSequenceNumber(), item));
   }
 }

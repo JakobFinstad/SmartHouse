@@ -1,6 +1,7 @@
 package ntnu.no.idata1001.jakobfin;
+
 /**
- * Enum class for the difference category of items in the warehouse.
+ * Enum class for the different category of items in the warehouse.
  *
  * @author 10042
  */
