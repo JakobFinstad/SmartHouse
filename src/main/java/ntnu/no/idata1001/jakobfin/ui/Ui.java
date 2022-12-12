@@ -227,7 +227,7 @@ public class Ui {
    * Show the menu, to give the user a choice.
    */
   private void showMenu() {
-    System.out.println("========================================\n"
+    System.out.println("\u001B[36m========================================\n"
             + "1. Print wares in the warehouse.\n"
             + "2. Search on ware.\n"
             + "3. Register a new ware.\n"
@@ -237,7 +237,7 @@ public class Ui {
             + "7. Change the discount for given ware\n"
             + "8. Change the description for given ware\n"
             + "9. Quit\n"
-            + "========================================\n");
+            + "========================================\n\u001B[0m");
   }
 
   /**
