@@ -75,11 +75,14 @@ public class Ui {
       int descriptionSequenceNumber = inputReader.getInt("1. Search by sequence number\n"
               + "2. Search by descriptions");
       if (descriptionSequenceNumber == 1) {
-        System.out.println(itemRegister.getDescription(itemRegister
-                .searchBySequenceNumber(inputReader.getString("Sequence number to search by"))));
+        System.out.println(itemRegister.getDescription(
+                itemRegister.searchBySequenceNumber(
+                        inputReader
+                                .getString("Sequence number to search by").trim().toUpperCase())));
       } else if (descriptionSequenceNumber == 2) {
         listAllItems(itemRegister
-                .searchMultipleByDescription(inputReader.getString("Description to search by"))
+                .searchMultipleByDescription(
+                        inputReader.getString("Description to search by").trim().toUpperCase())
                 .iterator());
       }
     } catch (IllegalArgumentException e) {
@@ -126,7 +129,7 @@ public class Ui {
     try {
       Item item = itemRegister.searchBySequenceNumber(inputReader.getString("Please enter "
               + "the sequence number of the ware that shall"
-              + " be deleted."));
+              + " be deleted.").trim().toUpperCase());
       if (item != null) {
         if (inputReader.getBoolean("Sure you want to delete this item?")) {
           itemRegister.deleteWare(item);
@@ -143,17 +146,16 @@ public class Ui {
    * Change the discount of a given ware.
    */
   private void changeDiscount() {
-    Item changedItem = itemRegister.searchBySequenceNumber(inputReader.getString(
-            "Sequence number on the ware that shall be changed"));
-    double discount = inputReader.getDouble("Write the discount, between 0 and 100");
-    int newPrice = changedItem.getPrice();
-
-    if (0 <= discount && discount <= 100) {
-      newPrice = (int) (newPrice * (1 - (discount / 100)));
-      itemRegister.changeWarePrice(changedItem.getSequenceNumber(), newPrice);
-      System.out.println("Discount added...");
-    } else {
-      System.out.println("Discount range is between 0 and 100. Please try again...");
+    try {
+      itemRegister.changeDiscount(
+              inputReader.getString("Sequence number of the item that shall be changed")
+                      .trim().toUpperCase(),
+              inputReader.getDouble("Discount"));
+      System.out.println("New discount set....");
+    } catch (IllegalArgumentException e) {
+      System.out.println("New discount is invalid: " + e.getMessage());
+    } catch (NullPointerException e) {
+      System.out.println("No such item in register: " + e.getMessage());
     }
   }
 
@@ -166,8 +168,10 @@ public class Ui {
               "Sequence number of the item that shall be altered"
       ), inputReader.getString("New description for the item"));
       System.out.println("Description changed...");
-    } catch (IllegalArgumentException | NullPointerException e) {
-      System.out.println("Something went wrong: " + e.getMessage());
+    } catch (IllegalArgumentException e) {
+      System.out.println("Illegal input, try again: " + e.getMessage());
+    } catch (NullPointerException e) {
+      System.out.println("No such item in register: " + e.getMessage());
     }
   }
 
@@ -198,6 +202,7 @@ public class Ui {
       item = new Item(inputReader.getString("SequenceNumber"),
               inputReader.getString("Description"),
               inputReader.getInt("Price"),
+              inputReader.getDouble("Discount"),
               inputReader.getString("Brand"),
               inputReader.getDouble("Weight"),
               inputReader.getDouble("Length"),
@@ -235,10 +240,8 @@ public class Ui {
    *
    * @param it the iterator for the items that shall be written out
    */
-  public void listAllItems(Iterator<Item> it) {
-    while (it.hasNext()) {
-      System.out.println(itemRegister.getDescription(it.next()));
-    }
+  private void listAllItems(Iterator<Item> it) {
+    System.out.println(itemRegister.getDescription(it));
   }
 
   /**
@@ -253,19 +256,19 @@ public class Ui {
    */
   private void populateTheWareHouse() {
     Item item1 = new Item("1", "Glass pane",
-            100, "Ikea", 19, 19, 19, 20, "Invisible", 10, 2);
+            100, 0, "Ikea", 19, 19, 19, 20, "Invisible", 10, 2);
 
     Item item2 = new Item("2", "Door knob",
-            36, "Ikea", 10.2, 19, 19, 10, "Orange", 20, 3);
+            36, 0, "Ikea", 10.2, 19, 19, 10, "Orange", 20, 3);
 
     Item item3 = new Item("3", "Door knob",
-            10, "Ikea", 19, 19, 19, 18, "kas", 10, 3);
+            10, 0, "Ikea", 19, 19, 19, 18, "kas", 10, 3);
 
     Item item4 = new Item("4", "Glass pane",
-            10, "Jysk", 19, 19, 19, 19, "kas", 10, 2);
+            10, 20, "Jysk", 19, 19, 19, 19, "kas", 10, 2);
 
     Item item5 = new Item("1HG", "Weights",
-            10, "Princess", 19, 19, 19, 19, "kas", 10, 4);
+            10, 10, "Princess", 19, 19, 19, 19, "kas", 10, 4);
 
     itemRegister.addMultipleItems(Stream.of(item1, item2, item3, item4, item5));
   }

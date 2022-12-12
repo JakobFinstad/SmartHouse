@@ -114,31 +114,58 @@ public class ItemRegister {
     itemMap.get(sequenceNumber).setDescription(description);
   }
 
+  public void changeDiscount(String sequenceNumber, double discount)
+          throws IllegalArgumentException, NullPointerException {
+    itemMap.get(sequenceNumber).setDiscount(discount);
+  }
+
   /**
    * Get a basic format for printing the warehouse.
    *
-   * @return string with all the information of the given item
+   * @return string with all the information of the given items
+   */
+  public String getDescription(Iterator<Item> it) {
+    if (it ==  null) {
+      throw new IllegalArgumentException("Item cannot be null");
+    }
+    StringBuilder str = new StringBuilder(String.format(
+            "| %-15s | %-17s | %-22s | %-13s | %-10s | "
+                    + "%-10s | %-10s | %-15s | %-6s | %-18s | %s\n",
+            "SEQUENCE NUMBER", "PRICE (DISCOUNT)",
+            "BRAND NAME", "WEIGHT", "LENGTH", "HEIGHT", "WIDTH",
+            "COLOR", "STOCK", "CATEGORY", "DESCRIPTION"));
+    str.append("\u001B[33m");
+    while (it.hasNext()) {
+      str.append(it.next().toString()).append("\n");
+    }
+
+    str.append("\u001B[0m");
+
+    return str.toString();
+  }
+
+  /**
+   * Get the description of the given item.
+   *
+   * @param item the item that shall be described
+   * @return string with information about the item
    */
   public String getDescription(Item item) {
     if (item ==  null) {
       throw new IllegalArgumentException("Item cannot be null");
     }
-    String str = "";
-    str += "==============================\n"
-            + "Sequence Number: " + item.getSequenceNumber() + "\n"
-            + "Description: " + item.getDescription() + "\n"
-            + "Price: " + item.getPrice() + "\n"
-            + "Brand: " + item.getBrand() + "\n"
-            + "Weight: " + item.getWeight() + "\n"
-            + "Length: " + item.getLength() + "\n"
-            + "Height: " + item.getHeight() + "\n"
-            + "Width: " + item.getWidth() + "\n"
-            + "Color: " + item.getColor() + "\n"
-            + "Amount: " + item.getAmount() + "\n"
-            + "Category: " + item.getCategory() + "\n"
-            + "=================================\n";
+    StringBuilder str = new StringBuilder(String.format(
+            "| %-15s | %-17s | %-22s | %-13s | %-10s | "
+                    + "%-10s | %-10s | %-15s | %-6s | %-18s | %s\n",
+            "SEQUENCE NUMBER", "PRICE (DISCOUNT)",
+            "BRAND NAME", "WEIGHT", "LENGTH", "HEIGHT", "WIDTH",
+            "COLOR", "STOCK", "CATEGORY", "DESCRIPTION"));
+    str.append("\u001B[33m");
+    str.append(item).append("\n");
 
-    return str;
+    str.append("\u001B[0m");
+
+    return str.toString();
   }
 
 

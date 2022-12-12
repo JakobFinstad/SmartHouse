@@ -11,6 +11,7 @@ public class Item {
   private String sequenceNumber;
   private String description;
   private int price;
+  private double discount;
   private String brand;
   private double weight;
   private double length;
@@ -30,6 +31,7 @@ public class Item {
    * @param sequenceNumber the sequence number, cannot be under 0
    * @param description of the item
    * @param price of the item, cannot be lower than 0
+   * @param discount of the item, must be between 0 and 100
    * @param brand of the item, lower case
    * @param weight of the item, cannot be 0 or lower
    * @param length of the item, cannot be 0 or lower
@@ -39,13 +41,14 @@ public class Item {
    * @param amount of the item, cannot be 0 or lower
    * @param category of the item, must be between 1-4
    */
-  public Item(String sequenceNumber, String description, int price, String brand,
+  public Item(String sequenceNumber, String description, int price, double discount, String brand,
               double weight, double length, double height, double width,
               String color, int amount, int category) {
 
     setSequenceNumber(sequenceNumber);
     setDescription(description);
     setPrice(price);
+    setDiscount(discount);
     setBrand(brand);
     setWeight(weight);
     setLength(length);
@@ -61,10 +64,11 @@ public class Item {
    *
    * @param item that shall be copied
    */
-  protected Item(Item item) {
+  public Item(Item item) {
     setSequenceNumber(item.getSequenceNumber());
     setDescription(item.getDescription());
     setPrice(item.getPrice());
+    setDiscount(item.getDiscount());
     setBrand(item.getBrand());
     setWeight(item.getWeight());
     setLength(item.getLength());
@@ -82,7 +86,7 @@ public class Item {
    * @throws IllegalArgumentException if the sequence number is lower or equal to 0
    */
   private void setSequenceNumber(String sequenceNumber) {
-    if (!sequenceNumber.isBlank() && !sequenceNumber.isEmpty()) {
+    if (!sequenceNumber.isBlank() && !sequenceNumber.isEmpty() && sequenceNumber != null) {
       this.sequenceNumber = sequenceNumber.trim().toUpperCase();
     } else {
       throw new IllegalArgumentException("Sequence number cannot be null");
@@ -93,8 +97,12 @@ public class Item {
    * Set the description of the item. Also clear the blank spaces in-front and after.
    *
    * @param description of the item
+   * @throws IllegalArgumentException if the string is null
    */
   protected void setDescription(String description) {
+    if (description == null) {
+      throw new IllegalArgumentException("Description cannot be null");
+    }
     this.description = description.trim();
   }
 
@@ -113,11 +121,30 @@ public class Item {
   }
 
   /**
+   * Set the discount of this item.
+   *
+   * @param discount of the item, must be between 0 and 100
+   * @throws IllegalArgumentException if discount is lower than 0 or over 100
+   */
+  protected void setDiscount(Double discount) {
+    if (0 <= discount && discount <= 100) {
+      this.discount = discount;
+    } else {
+      throw new IllegalArgumentException("Discount must "
+              + "be between 0 and 100");
+    }
+  }
+
+  /**
    * Set the brand of the given item.
    *
    * @param brand of the item, etc. Hunton, Pergo
+   * @throws IllegalArgumentException if input is empty or blank
    */
-  private void setBrand(@NotNull String brand) {
+  private void setBrand(String brand) {
+    if (brand == null || brand.isEmpty() || brand.isBlank()) {
+      throw new IllegalArgumentException("Brand cannot be empty");
+    }
     this.brand = brand.trim().toLowerCase();
   }
 
@@ -180,10 +207,13 @@ public class Item {
    * Set the color of the given item. Make them lowercase.
    *
    * @param color of the item
+   * @throws IllegalArgumentException if the color is nothing
    */
   private void setColor(String color) {
-    if (!color.isBlank()) {
+    if (color != null && !color.isBlank() && !color.isEmpty()) {
       this.color = color.trim().toLowerCase();
+    } else {
+      throw new IllegalArgumentException();
     }
   }
 
@@ -233,7 +263,7 @@ public class Item {
    * @return the description of the item
    */
   public String getDescription() {
-    return this.description;
+    return this.description.toUpperCase();
   }
 
   /**
@@ -243,6 +273,15 @@ public class Item {
    */
   public int getPrice() {
     return this.price;
+  }
+
+  /**
+   * Get the discount of the given item.
+   *
+   * @return the discount of the item
+   */
+  public double getDiscount() {
+    return this.discount;
   }
 
   /**
@@ -312,5 +351,17 @@ public class Item {
     return this.category;
   }
 
+  @Override
+  public String toString() {
+    return String.format(
+            "| %-15s | %6d (%8.2f%%)| %-22s | "
+            + "%10.2f%-3s | %10.2f | %10.2f | %10.2f | %-15s | "
+            + "%6d | %-18s | %s ",
+            this.getSequenceNumber(), this.getPrice(),
+            this.getDiscount(), this.getBrand(), this.getWeight(), " KG", this.getLength(),
+            this.getHeight(), this.getWidth(), this.getColor(), this.getAmount(),
+            this.getCategory(), this.getDescription()
+    );
+  }
 
 }
