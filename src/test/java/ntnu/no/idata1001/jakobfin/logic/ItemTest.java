@@ -13,7 +13,10 @@ import static org.junit.Assert.assertThrows;
  * @author 10042
  */
 public class ItemTest {
-  private static Item  item1 = new Item("12","asd", 10, 10,"has",19,19,19, 19, "kas",10,4);
+  private static Item  item1 = new Item(
+          "12","asd", 10
+          , 10,"has",19,19
+          ,19, 19, Color.BLACK,10,Category.DOOR);
 
   /**
    * Test item constructor for invalid input.
@@ -24,72 +27,72 @@ public class ItemTest {
   void testNegativeValues(){
     assertThrows(IllegalArgumentException.class, () -> { new Item("as","asd",
             -10, 10,"has",19
-            ,19,19, 19, "kas",10,4);});
+            ,19,19, 19, Color.BLACK,10,Category.DOOR);});
 
     assertThrows(IllegalArgumentException.class, () -> {
       new Item("","asd",
               10, 10,"has",19
-              ,19,19, 19, "kas",10,4);
+              ,19,19, 19, Color.BLACK,10,Category.DOOR);
     });
 
     assertThrows(IllegalArgumentException.class, () -> {
       new Item("1","12",
               10, -110,"has",19
-              ,19,19, 19, "kas",10,4);
+              ,19,19, 19, Color.BLACK,10,Category.DOOR);
     });
 
     assertThrows(IllegalArgumentException.class, () -> {
       new Item("12","asd",
               10, 110,"has",19
-              ,19,19, 19, "kas",10,4);
+              ,19,19, 19, Color.BLACK,10,Category.DOOR);
     });
 
     assertThrows(IllegalArgumentException.class, () -> {
       new Item("12","asd",
               10, 10,null,19
-              ,19,19, 19, "kas",10,4);
+              ,19,19, 19, Color.BLACK,10,Category.DOOR);
     });
 
     assertThrows(IllegalArgumentException.class, () -> {
       new Item("12","asd",
               10, 10,"has",-10
-              ,19,19, 19, "kas",10,4);
+              ,19,19, 19, Color.BLACK,10,Category.DOOR);
     });
 
     assertThrows(IllegalArgumentException.class, () -> {
       new Item("12","asd",
               10, 10,"has",19
-              ,-19,19, 19, "kas",10,4);
+              ,-19,19, 19, Color.BLACK,10,Category.DOOR);
     });
 
     assertThrows(IllegalArgumentException.class, () -> {
       new Item("12","asd",
               10, 10,"has",19
-              ,19,-19, 19, "kas",10,4);
+              ,19,-19, 19, Color.BLACK, 10,Category.DOOR);
     });
 
     assertThrows(IllegalArgumentException.class, () -> {
       new Item("12","asd",
               10, 10,"has",19
-              ,19,19, -19, "kas",10,4);
+              ,19,19, -19, Color.BLACK,10,Category.DOOR);
     });
 
     assertThrows(IllegalArgumentException.class, () -> {
       new Item("12","asd",
               10, 10,"has",19
-              ,19,19, 19, "",10,4);
+              ,19,19, 19, null,10,Category.DOOR);
     });
 
     assertThrows(IllegalArgumentException.class, () -> {
       new Item("12","asd",
               10, 10,"has",19
-              ,19,19, 19, "kas",-1,4);
+              ,19,19, 19, Color.BLACK, -1,Category.DOOR);
     });
 
     assertThrows(IllegalArgumentException.class, () -> {
       new Item("12","asd",
               10, 10,"has",19
-              ,19,19, 19, "kas",10,5);
+              ,19,19, 19, Color.BLACK,10,null);
     });
   }
 
@@ -102,7 +105,7 @@ public class ItemTest {
   void testPositiveConstructors() {
     assertEquals(item1.getClass(),new Item("12","asd",
               10, 10,"has",19
-              ,19,19, 19, "kas",10,4).getClass());
+              ,19,19, 19, Color.BLACK,10,Category.DOOR).getClass());
     assertEquals(item1.getClass(), new Item(item1).getClass());
   }
 
@@ -114,7 +117,7 @@ public class ItemTest {
   @Test
   void testCategory(){
     Item item = new Item("as","asd",
-            10, 0,"has",19.5,19,19, 19, "kas",10,3);
+            10, 0,"has",19.5,19,19, 19, Color.BLACK,10,Category.DOOR);
     assertEquals(Category.DOOR, item.getCategory());
   }
 }

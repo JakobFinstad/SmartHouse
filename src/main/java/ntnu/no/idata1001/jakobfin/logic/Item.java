@@ -17,7 +17,7 @@ public class Item {
   private double length;
   private double height;
   private double width;
-  private String color;
+  private Color color;
   private int amount;
   private Category category;
   private static final int FLOOR_LAMINATION = 1;
@@ -43,7 +43,7 @@ public class Item {
    */
   public Item(String sequenceNumber, String description, int price, double discount, String brand,
               double weight, double length, double height, double width,
-              String color, int amount, int category) {
+              Color color, int amount, Category category) {
 
     setSequenceNumber(sequenceNumber);
     setDescription(description);
@@ -209,9 +209,9 @@ public class Item {
    * @param color of the item
    * @throws IllegalArgumentException if the color is nothing
    */
-  private void setColor(String color) {
-    if (color != null && !color.isBlank() && !color.isEmpty()) {
-      this.color = color.trim().toLowerCase();
+  private void setColor(Color color) {
+    if (color != null) {
+      this.color = color;
     } else {
       throw new IllegalArgumentException();
     }
@@ -235,17 +235,13 @@ public class Item {
    * Set the category of the item.
    *
    * @param category of the item
-   * @throws IllegalArgumentException if category is outside the range 1 to 4
+   * @throws IllegalArgumentException if category is null
    */
-  private void setCategory(int category) {
-    switch (category) {
-      case FLOOR_LAMINATION -> this.category = Category.FLOOR_LAMINATION;
-      case WINDOW -> this.category = Category.WINDOW;
-      case DOOR -> this.category = Category.DOOR;
-      case WOOD -> this.category = Category.WOOD;
-      default -> throw new IllegalArgumentException("Category should be between 1 and 4");
-    }
-
+  private void setCategory(Category category) {
+   if (category == null) {
+     throw new IllegalArgumentException("Category cannot be 0");
+   }
+   this.category = category;
   }
 
   /**
@@ -329,7 +325,7 @@ public class Item {
    *
    * @return the color of the item
    */
-  public String getColor() {
+  public Color getColor() {
     return this.color;
   }
 

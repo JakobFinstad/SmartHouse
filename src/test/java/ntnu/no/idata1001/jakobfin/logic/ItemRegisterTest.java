@@ -17,7 +17,7 @@ public class ItemRegisterTest {
   private static ItemRegister itemRegister = new ItemRegister();
   private static Item item = new Item("12","asd",
             10, 10,"has",19
-            ,19,19, 19, "kas",10,4);
+            ,19,19, 19, Color.CYAN,10,Category.DOOR);
 
   /**
    * Testing the iterator function.

@@ -128,13 +128,14 @@ public class ItemRegister {
     if (it ==  null) {
       throw new IllegalArgumentException("Item cannot be null");
     }
-    StringBuilder str = new StringBuilder(String.format(
+    StringBuilder str = new StringBuilder("\u001B[34m");
+    str.append(String.format(
             "| %-15s | %-17s | %-22s | %-13s | %-10s | "
                     + "%-10s | %-10s | %-15s | %-6s | %-18s | %s\n",
             "SEQUENCE NUMBER", "PRICE (DISCOUNT)",
             "BRAND NAME", "WEIGHT", "LENGTH", "HEIGHT", "WIDTH",
             "COLOR", "STOCK", "CATEGORY", "DESCRIPTION"));
-    str.append("\u001B[33m");
+    str.append("\u001B[35m");
     while (it.hasNext()) {
       str.append(it.next().toString()).append("\n");
     }
@@ -160,7 +161,7 @@ public class ItemRegister {
             "SEQUENCE NUMBER", "PRICE (DISCOUNT)",
             "BRAND NAME", "WEIGHT", "LENGTH", "HEIGHT", "WIDTH",
             "COLOR", "STOCK", "CATEGORY", "DESCRIPTION"));
-    str.append("\u001B[33m");
+    str.append("\u001B[35m");
     str.append(item).append("\n");
 
     str.append("\u001B[0m");

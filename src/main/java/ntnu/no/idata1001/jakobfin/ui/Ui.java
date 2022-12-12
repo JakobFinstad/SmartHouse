@@ -2,6 +2,9 @@ package ntnu.no.idata1001.jakobfin.ui;
 
 import java.util.Iterator;
 import java.util.stream.Stream;
+
+import ntnu.no.idata1001.jakobfin.logic.Category;
+import ntnu.no.idata1001.jakobfin.logic.Color;
 import ntnu.no.idata1001.jakobfin.logic.Item;
 import ntnu.no.idata1001.jakobfin.logic.ItemRegister;
 
@@ -86,9 +89,9 @@ public class Ui {
                 .iterator());
       }
     } catch (IllegalArgumentException e) {
-      System.out.println("Something went wrong: " + e.getMessage());
+      System.out.println("\u001B[31mSomething went wrong: " + e.getMessage() + "\u001B[0m");
     } catch (NullPointerException e) {
-      System.out.println("No such item in the register...");
+      System.out.println("\u001B[31mNo such item in the register..." + e.getMessage() + "\u001B[0m");
     }
   }
 
@@ -99,9 +102,9 @@ public class Ui {
   private void addWare() {
     try {
       itemRegister.addItem(createItem());
-      System.out.println("Item added successfully");
+      System.out.println("\u001B[32mItem added successfully" + "\u001B[0m");
     } catch (IllegalArgumentException e) {
-      System.out.println("Could not execute: " + e.getMessage());
+      System.out.println("\u001B[31mCould not execute: " + e.getMessage() + "\u001B[0m");
     }
   }
 
@@ -114,11 +117,11 @@ public class Ui {
     try {
       itemRegister.changeWareAmount(inputReader.getString("Sequence number for item"),
               inputReader.getInt("The new amount"));
-      System.out.println("New amount set...");
+      System.out.println("\u001B[32mNew amount set..." + "\u001B[0m");
     } catch (IllegalArgumentException e) {
-      System.out.println("Something went wrong: " + e.getMessage());
+      System.out.println("\u001B[31mSomething went wrong: " + e.getMessage() + "\u001B[0m");
     } catch (NullPointerException e) {
-      System.out.println("Could not find item: " + e.getMessage());
+      System.out.println("\u001B[31mCould not find item: " + e.getMessage() + "\u001B[0m");
     }
   }
 
@@ -133,12 +136,15 @@ public class Ui {
       if (item != null) {
         if (inputReader.getBoolean("Sure you want to delete this item?")) {
           itemRegister.deleteWare(item);
+          System.out.println("\u001B[32mWare deleted successfully....." + "\u001B[0m");
+        } else {
+          System.out.println("\u001B[32mWare not deleted....." + "\u001B[0m");
         }
       }
 
-      System.out.println("Ware deleted successfully.....");
+
     } catch (NullPointerException e) {
-      System.out.println("Could not find item: " + e.getMessage());
+      System.out.println("\u001B[31mCould not find item: " + e.getMessage() + "\u001B[0m");
     }
   }
 
@@ -151,11 +157,11 @@ public class Ui {
               inputReader.getString("Sequence number of the item that shall be changed")
                       .trim().toUpperCase(),
               inputReader.getDouble("Discount"));
-      System.out.println("New discount set....");
+      System.out.println("\u001B[32mNew discount set...." + "\u001B[0m");
     } catch (IllegalArgumentException e) {
-      System.out.println("New discount is invalid: " + e.getMessage());
+      System.out.println("\u001B[31mNew discount is invalid: " + e.getMessage() + "\u001B[0m");
     } catch (NullPointerException e) {
-      System.out.println("No such item in register: " + e.getMessage());
+      System.out.println("\u001B[31mNo such item in register: " + e.getMessage() + "\u001B[0m");
     }
   }
 
@@ -167,11 +173,11 @@ public class Ui {
       itemRegister.changeDescription(inputReader.getString(
               "Sequence number of the item that shall be altered"
       ), inputReader.getString("New description for the item"));
-      System.out.println("Description changed...");
+      System.out.println("\u001B[32mDescription changed..." + "\u001B[0m");
     } catch (IllegalArgumentException e) {
-      System.out.println("Illegal input, try again: " + e.getMessage());
+      System.out.println("\u001B[31mIllegal input, try again: " + e.getMessage() + "\u001B[0m");
     } catch (NullPointerException e) {
-      System.out.println("No such item in register: " + e.getMessage());
+      System.out.println("\u001B[31mNo such item in register: " + e.getMessage() + "\u001B[0m");
     }
   }
 
@@ -183,11 +189,11 @@ public class Ui {
       itemRegister.changeWarePrice(inputReader.getString(
               "Sequence number of the ware that shall be altered."),
               inputReader.getInt("New price for the ware"));
-      System.out.println("Price changed....");
+      System.out.println("\u001B[32mPrice changed...." + "\u001B[0m");
     } catch (IllegalArgumentException e) {
-      System.out.println("New price cannot be added: " + e.getMessage());
+      System.out.println("\u001B[31mNew price cannot be added: " + e.getMessage() + "\u001B[0m");
     } catch (NullPointerException e) {
-      System.out.println("No such item in the register: " + e.getMessage());
+      System.out.println("\u001B[31mNo such item in the register: " + e.getMessage() + "\u001B[0m");
     }
   }
 
@@ -208,12 +214,11 @@ public class Ui {
               inputReader.getDouble("Length"),
               inputReader.getDouble("Height"),
               inputReader.getDouble("Width"),
-              inputReader.getString("Color"),
+              inputReader.getColor("Color"),
               inputReader.getInt("Amount"),
-              inputReader.getInt("Category, "
-                      + "1 for Laminate floor, 2 for window, 3 for door and 4 for wood"));
+              inputReader.getCategory("Category"));
     } catch (IllegalArgumentException e) {
-      System.out.println("Error, something went wrong: " + e.getMessage());
+      System.out.println("\u001B[31mError, something went wrong: " + e.getMessage() + "\u001B[0m");
     }
     return item;
   }
@@ -248,7 +253,8 @@ public class Ui {
    * Shows exit message, for terminating the program.
    */
   private void showExitMessage() {
-    System.out.println("Thank you for using WMS....");
+    System.out.println("\u001B[32mThank you for using WMS...." + "\u001B[0m");
+    System.out.println("\u001B[32mExiting...." + "\u001B[0m");
   }
 
   /**
@@ -256,19 +262,19 @@ public class Ui {
    */
   private void populateTheWareHouse() {
     Item item1 = new Item("1", "Glass pane",
-            100, 0, "Ikea", 19, 19, 19, 20, "Invisible", 10, 2);
+            100, 0, "Ikea", 19, 19, 19, 20, Color.BLACK, 10, Category.WINDOW);
 
     Item item2 = new Item("2", "Door knob",
-            36, 0, "Ikea", 10.2, 19, 19, 10, "Orange", 20, 3);
+            36, 0, "Ikea", 10.2, 19, 19, 10, Color.BLUE, 20, Category.DOOR);
 
     Item item3 = new Item("3", "Door knob",
-            10, 0, "Ikea", 19, 19, 19, 18, "kas", 10, 3);
+            10, 0, "Ikea", 19, 19, 19, 18, Color.BEIGE, 10, Category.DOOR);
 
     Item item4 = new Item("4", "Glass pane",
-            10, 20, "Jysk", 19, 19, 19, 19, "kas", 10, 2);
+            10, 20, "Jysk", 19, 19, 19, 19, Color.CYAN, 10, Category.WINDOW);
 
     Item item5 = new Item("1HG", "Weights",
-            10, 10, "Princess", 19, 19, 19, 19, "kas", 10, 4);
+            10, 10, "Princess", 19, 19, 19, 19, Color.GOLD, 10, Category.WOOD);
 
     itemRegister.addMultipleItems(Stream.of(item1, item2, item3, item4, item5));
   }
