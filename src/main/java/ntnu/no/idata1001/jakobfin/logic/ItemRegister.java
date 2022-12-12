@@ -104,16 +104,40 @@ public class ItemRegister {
     itemMap.get(sequenceNumber).setAmount(amount);
   }
 
+  /**
+   * Change the price of an item.
+   *
+   * @param sequenceNumber of the item that shall be altered
+   * @param price the new price for the item, must be positive or 0
+   * @throws IllegalArgumentException if price is invalid
+   * @throws NullPointerException if item is not in register
+   */
   public void changeWarePrice(String sequenceNumber, int price)
           throws IllegalArgumentException, NullPointerException {
     itemMap.get(sequenceNumber).setPrice(price);
   }
 
+  /**
+   * Change the description of an item.
+   *
+   * @param sequenceNumber of the item that shall be altered
+   * @param description the new description
+   * @throws IllegalArgumentException if the description is invalid
+   * @throws NullPointerException if item is not in register
+   */
   public void changeDescription(String sequenceNumber, String description)
           throws  IllegalArgumentException, NullPointerException {
     itemMap.get(sequenceNumber).setDescription(description);
   }
 
+  /**
+   * Change discount of an item.
+   *
+   * @param sequenceNumber of the item that shall be altered
+   * @param discount the new discount, must be between 0 and 100
+   * @throws IllegalArgumentException if discount is invalid
+   * @throws NullPointerException if item is not in the register
+   */
   public void changeDiscount(String sequenceNumber, double discount)
           throws IllegalArgumentException, NullPointerException {
     itemMap.get(sequenceNumber).setDiscount(discount);
@@ -122,6 +146,7 @@ public class ItemRegister {
   /**
    * Get a basic format for printing the warehouse.
    *
+   * @param it iterator for the items that shall be displayed
    * @return string with all the information of the given items
    */
   public String getDescription(Iterator<Item> it) {

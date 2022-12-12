@@ -1,7 +1,5 @@
 package ntnu.no.idata1001.jakobfin.logic;
 
-import org.jetbrains.annotations.NotNull;
-
 /**
  * Class for different items, contains useful information regarding different items.
  *
@@ -316,6 +314,11 @@ public class Item {
     return this.height;
   }
 
+  /**
+   * Get width of the item.
+   *
+   * @return width of the item
+   */
   public double getWidth() {
     return this.width;
   }
@@ -347,6 +350,11 @@ public class Item {
     return this.category;
   }
 
+  /**
+   * Get standard format for out printing item.
+   *
+   * @return format for printing item
+   */
   @Override
   public String toString() {
     return String.format(
