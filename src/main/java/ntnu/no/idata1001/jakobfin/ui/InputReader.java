@@ -1,9 +1,9 @@
 package ntnu.no.idata1001.jakobfin.ui;
 
+import java.util.Scanner;
 import ntnu.no.idata1001.jakobfin.logic.Category;
 import ntnu.no.idata1001.jakobfin.logic.Color;
 
-import java.util.Scanner;
 
 /**
  * Scanner who interpret input written by user. Methods to decide which

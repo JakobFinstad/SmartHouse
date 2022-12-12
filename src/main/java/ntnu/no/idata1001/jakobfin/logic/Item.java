@@ -238,10 +238,10 @@ public class Item {
    * @throws IllegalArgumentException if category is null
    */
   private void setCategory(Category category) {
-   if (category == null) {
-     throw new IllegalArgumentException("Category cannot be 0");
-   }
-   this.category = category;
+    if (category == null) {
+      throw new IllegalArgumentException("Category cannot be 0");
+    }
+    this.category = category;
   }
 
   /**

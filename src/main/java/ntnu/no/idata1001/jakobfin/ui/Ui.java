@@ -2,7 +2,6 @@ package ntnu.no.idata1001.jakobfin.ui;
 
 import java.util.Iterator;
 import java.util.stream.Stream;
-
 import ntnu.no.idata1001.jakobfin.logic.Category;
 import ntnu.no.idata1001.jakobfin.logic.Color;
 import ntnu.no.idata1001.jakobfin.logic.Item;
@@ -91,7 +90,8 @@ public class Ui {
     } catch (IllegalArgumentException e) {
       System.out.println("\u001B[31mSomething went wrong: " + e.getMessage() + "\u001B[0m");
     } catch (NullPointerException e) {
-      System.out.println("\u001B[31mNo such item in the register..." + e.getMessage() + "\u001B[0m");
+      System.out.println("\u001B[31mNo such item in the register..."
+              + e.getMessage() + "\u001B[0m");
     }
   }
 

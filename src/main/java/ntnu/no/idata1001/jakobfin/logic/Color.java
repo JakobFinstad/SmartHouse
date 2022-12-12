@@ -1,5 +1,10 @@
 package ntnu.no.idata1001.jakobfin.logic;
 
+/**
+ * A class for representing a color.
+ *
+ * @author 10042
+ */
 public enum Color {
   RED,
   BLUE,
