@@ -21,7 +21,7 @@ public class ItemTest {
    * test will <code>FAIL</code> if object is created with invalid arguments
    */
   @Test
-  public void testNegativeValues(){
+  void testNegativeValues(){
     assertThrows(IllegalArgumentException.class, () -> { new Item("as","asd",
             -10, 10,"has",19
             ,19,19, 19, "kas",10,4);});
@@ -99,7 +99,7 @@ public class ItemTest {
    * test will <code>FAIL</code> if something went wrong under creation of item
    */
   @Test
-  public void testPositiveConstructors() {
+  void testPositiveConstructors() {
     assertEquals(item1.getClass(),new Item("12","asd",
               10, 10,"has",19
               ,19,19, 19, "kas",10,4).getClass());
@@ -112,7 +112,7 @@ public class ItemTest {
    * test will <code>FAIL</code> if the categories was not alike
    */
   @Test
-  public void testCategory(){
+  void testCategory(){
     Item item = new Item("as","asd",
             10, 0,"has",19.5,19,19, 19, "kas",10,3);
     assertEquals(Category.DOOR, item.getCategory());

@@ -25,7 +25,7 @@ public class ItemRegisterTest {
    * test will <code>FAIL</code> if the iterator is null
    */
   @Test
-  public void iteratorTest() {
+  void iteratorTest() {
     assertNotNull(itemRegister.getIterator());
   }
 
@@ -35,7 +35,7 @@ public class ItemRegisterTest {
    * test will <code>FAIl</code> if the item was not added
    */
   @Test
-  public void addItemPositiveTest() {
+  void addItemPositiveTest() {
     itemRegister.addItem(item);
     assertEquals(item, itemRegister.getIterator().next());
     itemRegister.deleteWare(item);
@@ -47,7 +47,7 @@ public class ItemRegisterTest {
    * test will <code>FAIL</code> if no exception gets thrown
    */
   @Test
-  public void addItemNegativeTest() {
+  void addItemNegativeTest() {
     assertThrows(IllegalArgumentException.class, () -> itemRegister.addItem(null));
     itemRegister.addItem(item);
     assertThrows(IllegalArgumentException.class, () -> itemRegister.addItem(item));
@@ -60,7 +60,7 @@ public class ItemRegisterTest {
    * test will <code>FAIL</code> if added item is null, and nothing is thrown
    */
   @Test
-  public void searchBySequenceNumberTest() {
+  void searchBySequenceNumberTest() {
     assertThrows(NullPointerException.class, () -> itemRegister.searchBySequenceNumber(item.getSequenceNumber()));
     itemRegister.addItem(item);
     assertNotNull(itemRegister.searchBySequenceNumber(item.getSequenceNumber()));
@@ -73,7 +73,7 @@ public class ItemRegisterTest {
    * test will <code>FAIL</code> if the added item does not get found
    */
   @Test
-  public void searchByDescription() {
+  void searchByDescription() {
     itemRegister.addItem(item);
     assertEquals(item,itemRegister.searchMultipleByDescription(item.getDescription()).get(0));
     itemRegister.deleteWare(item);
@@ -85,7 +85,7 @@ public class ItemRegisterTest {
    * test will <code>FAIL</code> if the item don't get deleted
    */
   @Test
-  public void deleteWareTest() {
+  void deleteWareTest() {
     itemRegister.addItem(item);
     itemRegister.deleteWare(item);
     assertThrows(NullPointerException.class, () -> {
@@ -101,7 +101,7 @@ public class ItemRegisterTest {
    * test will <code>FAIL</code> if the methods don't throw, or can change to invalid arguments
    */
   @Test
-  public void alternateWareTest() {
+  void alternateWareTest() {
     itemRegister.addItem(item);
     assertThrows(IllegalArgumentException.class, () -> {
       itemRegister.changeDiscount(item.getSequenceNumber(),101);
@@ -148,7 +148,7 @@ public class ItemRegisterTest {
    * test will <code>FAIl</code> if nothing is thrown
    */
   @Test
-  public void descriptionTest() {
+  void descriptionTest() {
     assertThrows(IllegalArgumentException.class, () -> {
       itemRegister.getDescription((Iterator<Item>) null);
     });
