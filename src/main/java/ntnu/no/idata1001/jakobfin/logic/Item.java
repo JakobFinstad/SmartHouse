@@ -18,26 +18,22 @@ public class Item {
   private Color color;
   private int amount;
   private Category category;
-  private static final int FLOOR_LAMINATION = 1;
-  private static final int WINDOW = 2;
-  private static final int DOOR = 3;
-  private static final int WOOD = 4;
 
   /**
    * Constructor for the item.
    *
    * @param sequenceNumber the sequence number, cannot be under 0
-   * @param description of the item
-   * @param price of the item, cannot be lower than 0
-   * @param discount of the item, must be between 0 and 100
-   * @param brand of the item, lower case
-   * @param weight of the item, cannot be 0 or lower
-   * @param length of the item, cannot be 0 or lower
-   * @param height of the item, cannot be 0 or lower
-   * @param width of the item, cannot be 0 or lower
-   * @param color of the item, lower case
-   * @param amount of the item, cannot be 0 or lower
-   * @param category of the item, must be between 1-4
+   * @param description    of the item
+   * @param price          of the item, cannot be lower than 0
+   * @param discount       of the item, must be between 0 and 100
+   * @param brand          of the item, lower case
+   * @param weight         of the item, cannot be 0 or lower
+   * @param length         of the item, cannot be 0 or lower
+   * @param height         of the item, cannot be 0 or lower
+   * @param width          of the item, cannot be 0 or lower
+   * @param color          of the item, lower case
+   * @param amount         of the item, cannot be 0 or lower
+   * @param category       of the item, must be between 1-4
    */
   public Item(String sequenceNumber, String description, int price, double discount, String brand,
               double weight, double length, double height, double width,
@@ -84,7 +80,7 @@ public class Item {
    * @throws IllegalArgumentException if the sequence number is lower or equal to 0
    */
   private void setSequenceNumber(String sequenceNumber) {
-    if (!sequenceNumber.isBlank() && !sequenceNumber.isEmpty() && sequenceNumber != null) {
+    if (sequenceNumber != null && !sequenceNumber.isBlank() && !sequenceNumber.isEmpty()) {
       this.sequenceNumber = sequenceNumber.trim().toUpperCase();
     } else {
       throw new IllegalArgumentException("Sequence number cannot be null");
@@ -150,7 +146,7 @@ public class Item {
    * Set the weight of the given item.
    *
    * @param weight a representation of the item's mass, should not be under 0
-   * @throws IllegalArgumentException if weight is not higher than 0
+   * @throws IllegalArgumentException if weight is not higher than -1
    */
   private void setWeight(double weight) {
     if (weight > 0) {
@@ -164,6 +160,7 @@ public class Item {
    * Set the length of a given item.
    *
    * @param length of the item in meters
+   * @throws IllegalArgumentException if length is under 0
    */
   private void setLength(double length) {
     if (length > 0) {
@@ -176,8 +173,8 @@ public class Item {
   /**
    * Set the height of the item.
    *
-   *@param height of the item, cannot be under 0
-   *@throws IllegalArgumentException if height is lower or equal to 0
+   * @param height of the item, cannot be under 0
+   * @throws IllegalArgumentException if height is lower or equal to 0
    */
   private void setHeight(double height) {
     if (height > 0) {
@@ -237,7 +234,7 @@ public class Item {
    */
   private void setCategory(Category category) {
     if (category == null) {
-      throw new IllegalArgumentException("Category cannot be 0");
+      throw new IllegalArgumentException("Category cannot be null");
     }
     this.category = category;
   }
@@ -359,8 +356,8 @@ public class Item {
   public String toString() {
     return String.format(
             "| %-15s | %6d (%8.2f%%)| %-22s | "
-            + "%10.2f%-3s | %10.2f | %10.2f | %10.2f | %-15s | "
-            + "%6d | %-18s | %s ",
+                    + "%10.2f%-3s | %10.2f | %10.2f | %10.2f | %-15s | "
+                    + "%6d | %-18s | %s ",
             this.getSequenceNumber(), this.getPrice(),
             this.getDiscount(), this.getBrand(), this.getWeight(), " KG", this.getLength(),
             this.getHeight(), this.getWidth(), this.getColor(), this.getAmount(),

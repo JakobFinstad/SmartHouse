@@ -12,7 +12,7 @@ import ntnu.no.idata1001.jakobfin.logic.Color;
  * @author 10042
  */
 public class InputReader {
-  private Scanner scanner;
+  private final Scanner scanner;
 
   /**
    * Create a scanner object.
@@ -30,8 +30,7 @@ public class InputReader {
   public String getString(String displayMessage) {
     System.out.println(displayMessage);
     System.out.print("> ");
-    String selectedChoice = scanner.nextLine();
-    return selectedChoice;
+    return scanner.nextLine();
   }
 
   /**
@@ -122,7 +121,7 @@ public class InputReader {
     boolean booleanToReturn = false;
     if (selectedChoice.equals("y")) {
       booleanToReturn = true;
-    } else if (!selectedChoice.equals("y") && !selectedChoice.equals("n")) {
+    } else if (!selectedChoice.equals("n")) {
       System.out.print("Please enter y or n!");
     }
     return booleanToReturn;

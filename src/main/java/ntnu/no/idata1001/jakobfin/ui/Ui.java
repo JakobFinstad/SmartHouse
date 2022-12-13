@@ -53,7 +53,6 @@ public class Ui {
         case EXIT -> {
           running = false;
           showExitMessage();
-          System.exit(0);
         }
         default -> System.out.println("Please select one of the menu options");
       }
@@ -74,8 +73,10 @@ public class Ui {
    */
   private void searchWare() {
     try {
-      int descriptionSequenceNumber = inputReader.getInt("1. Search by sequence number\n"
-              + "2. Search by descriptions");
+      int descriptionSequenceNumber = inputReader.getInt("""
+              1. Search by sequence number
+              2. Search by descriptions
+              3. Search by category""");
       if (descriptionSequenceNumber == 1) {
         System.out.println(itemRegister.getDescription(
                 itemRegister.searchBySequenceNumber(
@@ -86,6 +87,10 @@ public class Ui {
                 .searchMultipleByDescription(
                         inputReader.getString("Description to search by").trim().toUpperCase())
                 .iterator());
+      } else if (descriptionSequenceNumber == 3) {
+        System.out.println(itemRegister.getDescription(
+                itemRegister.searchMultipleByCategory(
+                        inputReader.getCategory("Category of the items")).iterator()));
       }
     } catch (IllegalArgumentException e) {
       System.out.println("\u001B[31mSomething went wrong: " + e.getMessage() + "\u001B[0m");
@@ -227,17 +232,19 @@ public class Ui {
    * Show the menu, to give the user a choice.
    */
   private void showMenu() {
-    System.out.println("\u001B[36m========================================\n"
-            + "1. Print wares in the warehouse.\n"
-            + "2. Search on ware.\n"
-            + "3. Register a new ware.\n"
-            + "4. Change the amount of given ware.\n"
-            + "5. Delete a ware from the warehouse.\n"
-            + "6. Change the price for given ware.\n"
-            + "7. Change the discount for given ware\n"
-            + "8. Change the description for given ware\n"
-            + "9. Quit\n"
-            + "========================================\n\u001B[0m");
+    System.out.println("""
+            \u001B[36m========================================
+            1. Print wares in the warehouse.
+            2. Search on ware.
+            3. Register a new ware.
+            4. Change the amount of given ware.
+            5. Delete a ware from the warehouse.
+            6. Change the price for given ware.
+            7. Change the discount for given ware
+            8. Change the description for given ware
+            9. Quit
+            ========================================
+            \u001B[0m""");
   }
 
   /**

@@ -14,13 +14,13 @@ import java.util.stream.Stream;
  * @author 10042
  */
 public class ItemRegister {
-  private HashMap<String, Item> itemMap;
+  private final HashMap<String, Item> itemMap;
 
   /**
    * Constructor for the warehouse.
    */
   public ItemRegister() {
-    this.itemMap = new HashMap<String, Item>();
+    this.itemMap = new HashMap<>();
   }
 
   /**
@@ -49,8 +49,8 @@ public class ItemRegister {
     if (itemMap.containsKey(sequenceNumber.trim().toUpperCase())) {
       foundItem = itemMap.get(sequenceNumber);
     }
-    Item returnItem = new Item(foundItem);
-    return returnItem;
+    assert foundItem != null;
+    return new Item(foundItem);
   }
 
   /**
@@ -63,7 +63,23 @@ public class ItemRegister {
     List<Item> foundItem = new ArrayList<>();
     for (Item it : itemMap.values()) {
       if (it.getDescription().equals(description.trim())) {
-        foundItem.add(it);
+        foundItem.add(new Item(it));
+      }
+    }
+    return foundItem;
+  }
+
+  /**
+   * Search the warehouse for multiple items by category.
+   *
+   * @param category of the item that shall be searched for
+   * @return item if found, if not found returns null
+   */
+  public List<Item> searchMultipleByCategory(Category category) {
+    List<Item> foundItem = new ArrayList<>();
+    for (Item it : itemMap.values()) {
+      if (it.getCategory().equals(category)) {
+        foundItem.add(new Item(it));
       }
     }
     return foundItem;
@@ -180,18 +196,15 @@ public class ItemRegister {
     if (item ==  null) {
       throw new IllegalArgumentException("Item cannot be null");
     }
-    StringBuilder str = new StringBuilder(String.format(
+
+    return String.format(
             "| %-15s | %-17s | %-22s | %-13s | %-10s | "
                     + "%-10s | %-10s | %-15s | %-6s | %-18s | %s\n",
             "SEQUENCE NUMBER", "PRICE (DISCOUNT)",
             "BRAND NAME", "WEIGHT", "LENGTH", "HEIGHT", "WIDTH",
-            "COLOR", "STOCK", "CATEGORY", "DESCRIPTION"));
-    str.append("\u001B[35m");
-    str.append(item).append("\n");
-
-    str.append("\u001B[0m");
-
-    return str.toString();
+            "COLOR", "STOCK", "CATEGORY", "DESCRIPTION") + "\u001B[35m" +
+            item + "\n" +
+            "\u001B[0m";
   }
 
 

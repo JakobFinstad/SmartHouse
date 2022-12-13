@@ -6,8 +6,9 @@ package ntnu.no.idata1001.jakobfin.logic;
  * @author 10042
  */
 public enum Category {
-    FLOOR_LAMINATION,
-    WINDOW,
-    DOOR,
-    WOOD
+  FLOOR_LAMINATION,
+  WINDOW,
+  DOOR,
+  WOOD,
+  METAL
 }
