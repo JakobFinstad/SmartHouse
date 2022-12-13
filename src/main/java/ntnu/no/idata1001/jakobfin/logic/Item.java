@@ -364,5 +364,4 @@ public class Item {
             this.getCategory(), this.getDescription()
     );
   }
-
 }

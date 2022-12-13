@@ -202,9 +202,9 @@ public class ItemRegister {
                     + "%-10s | %-10s | %-15s | %-6s | %-18s | %s\n",
             "SEQUENCE NUMBER", "PRICE (DISCOUNT)",
             "BRAND NAME", "WEIGHT", "LENGTH", "HEIGHT", "WIDTH",
-            "COLOR", "STOCK", "CATEGORY", "DESCRIPTION") + "\u001B[35m" +
-            item + "\n" +
-            "\u001B[0m";
+            "COLOR", "STOCK", "CATEGORY", "DESCRIPTION") + "\u001B[35m"
+            + item + "\n"
+            + "\u001B[0m";
   }
 
 
